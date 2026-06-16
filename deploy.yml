@@ -1,0 +1,8 @@
+---
+- hosts: localhost
+  connection: local
+  tasks:
+    - name: Deploy custom nginx
+      shell: |
+        kubectl create deployment custom-nginx --image=custom-nginx:1.0 --dry-run=client -o yaml | kubectl apply -f -
+        kubectl expose deployment custom-nginx --type=NodePort --port=80 --dry-run=client -o yaml | kubectl apply -f -
